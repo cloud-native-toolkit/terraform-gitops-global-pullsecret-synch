@@ -8,17 +8,5 @@ data:
   global-pull-secret-sync.sh: |
     #!/bin/bash
 
-    export WORK_ROOT=$(pwd)
-
-    oc extract secret/pull-secret \
-      -n openshift-config
-
-    oc registry login \
-      --registry="${DOCKER_SERVER}" \
-      --auth-basic="${DOCKER_USERNAME}:${DOCKER_PASSWORD}" \
-      --to=${WORK_ROOT}/.dockerconfigjson
-
-    oc set data secret/pull-secret \
-      -n openshift-config \
-      --from-file=.dockerconfigjson=${WORK_ROOT}/.dockerconfigjson
+    ls-la /host
 

@@ -15,11 +15,18 @@ spec:
           configMap:
             name: global-pull-secret-sync-config
             defaultMode: 0777
+        - name: hostpath-privileged
+          hostPath:
+            path: /host
       containers:
         - name: global-pull-sync
           image: "quay.io/ibmgaragecloud/cli-tools:latest"
+          securityContext:
+            privileged: true
           volumeMounts:
             - mountPath: /scripts
               name: scripts
+            - mountPath: /host
+              name: hostpath
           command:
             - /scripts/global-pull-secret-sync.sh
