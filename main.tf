@@ -1,7 +1,7 @@
 locals {
   name          = "global-pull-secret-synch"
   bin_dir       = module.setup_clis.bin_dir
-  yaml_dir      = "${path.cwd}/.tmp/${local.name}/chart/${local.name}"
+  yaml_dir      = "${path.cwd}/.tmp/${local.name}/chart/global-pull-secret-synch"
   service_url   = "http://${local.name}.${var.namespace}"
   values_content = {
   }
