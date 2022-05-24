@@ -6,6 +6,9 @@ metadata:
   labels:
     {{- include "global-pull-secret-synch.labels" . | nindent 4 }}
 spec:
+  selector:
+    matchLabels:
+      {{- include "global-pull-secret-synch.selectorLabels" . | nindent 6 }}
   template:
     spec:
       serviceAccountName: global-pull-secret-sync-sa
@@ -15,9 +18,10 @@ spec:
           configMap:
             name: global-pull-secret-sync-config
             defaultMode: 0777
-        - name: hostpath-privileged
-          hostPath:
-            path: /host
+        - hostPath:
+            path: /
+            type: Directory
+          name: host
       containers:
         - name: global-pull-sync
           image: "quay.io/ibmgaragecloud/cli-tools:latest"
@@ -27,6 +31,6 @@ spec:
             - mountPath: /scripts
               name: scripts
             - mountPath: /host
-              name: hostpath
+              name: host
           command:
             - /scripts/global-pull-secret-sync.sh
