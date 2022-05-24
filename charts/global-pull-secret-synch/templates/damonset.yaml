@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: global-pull-secret-sync-ds
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "global-pull-secret-synch.labels" . | nindent 4 }}
+spec:
+  template:
+    spec:
+      serviceAccountName: global-pull-secret-sync-sa
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - name: scripts
+          configMap:
+            name: global-pull-secret-sync-config
+            defaultMode: 0777
+      containers:
+        - name: global-pull-sync
+          image: "quay.io/ibmgaragecloud/cli-tools:latest"
+          volumeMounts:
+            - mountPath: /scripts
+              name: scripts
+          command:
+            - /scripts/global-pull-secret-sync.sh
