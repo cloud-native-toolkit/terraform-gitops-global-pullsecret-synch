@@ -8,8 +8,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      {{- include "global-pull-secret-synch.labels" . | nindent 6 }}
+      {{- include "global-pull-secret-synch.selectorLabels" . | nindent 6 }}
   template:
+    metadata:
+      labels:
+        {{- include "global-pull-secret-synch.labels" . | nindent 8 }}
     spec:
       serviceAccountName: global-pull-secret-sync-sa
       terminationGracePeriodSeconds: 60
