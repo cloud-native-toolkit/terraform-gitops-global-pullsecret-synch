@@ -70,4 +70,4 @@ nodeSelector: {}
 
 tolerations: []
 
-affinity: {}ç
+affinity: {}
