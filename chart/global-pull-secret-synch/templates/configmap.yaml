@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: global-pull-secret-sync-config
+  name: {{ .Release.Name }}-config
   labels:
     {{- include "global-pull-secret-synch.labels" . | nindent 4 }}
 data:
