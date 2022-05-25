@@ -8,5 +8,6 @@ data:
   global-pull-secret-sync.sh: |
     #!/bin/bash
 
-    ls-la /host
+    ls -la /host
+    cat /home/.dockerconfigjson
 
