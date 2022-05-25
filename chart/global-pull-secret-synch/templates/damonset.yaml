@@ -35,5 +35,3 @@ spec:
           command:
             - /scripts/global-pull-secret-sync.sh
 
-
-DaemonSet.apps "global-pull-secret-sync-ds" is invalid: spec.template.metadata.labels: Invalid value: map[string]string(nil): `selector` does not match template `labels`
