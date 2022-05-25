@@ -71,3 +71,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+service-account:
+  name: global-pull-secret-sync-sa
+  sccs: ["privileged"]
