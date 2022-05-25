@@ -48,6 +48,8 @@ validate_gitops_content "${NAMESPACE}" "${LAYER}" "${SERVER_NAME}" "${TYPE}" "${
 
 check_k8s_namespace "${NAMESPACE}"
 
+sleep 5m
+
 #check_k8s_resource "${NAMESPACE}" "deployment" "${COMPONENT_NAME}"
 
 cd ..
