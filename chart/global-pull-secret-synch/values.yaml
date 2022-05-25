@@ -23,6 +23,7 @@ serviceAccount:
 service-account:
   name: global-pull-secret-sync-sa
   sccs: [ "privileged" ]
+  create: true
 
 podSecurityContext: {}
   # fsGroup: 2000
