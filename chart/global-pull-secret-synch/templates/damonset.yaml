@@ -14,7 +14,7 @@ spec:
       labels:
         {{- include "global-pull-secret-synch.labels" . | nindent 8 }}
     spec:
-      serviceAccountName: global-pull-secret-sync-sa
+      serviceAccountName: {{ include "global-pull-secret-synch.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       terminationGracePeriodSeconds: 60
@@ -37,6 +37,10 @@ spec:
               name: scripts
             - mountPath: /host
               name: host
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
           command:
             - /scripts/global-pull-secret-sync.sh
-
