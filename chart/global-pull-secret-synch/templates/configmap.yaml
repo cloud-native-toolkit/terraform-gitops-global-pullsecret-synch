@@ -8,6 +8,12 @@ data:
   global-pull-secret-sync.sh: |
     #!/bin/bash
 
-    ls -la /host
-    cat /home/.dockerconfigjson
+    while true
+    do
+      ls -la /host
+      cat /host/.dockerconfigjson
+      sleep 5m
+    done
+
+
 
