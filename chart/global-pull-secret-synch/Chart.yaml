@@ -23,4 +23,4 @@ appVersion: 1.16.0
 dependencies:
   - name: service-account
     repository: https://charts.cloudnativetoolkit.dev/
-    version: 0.6.0
+    version: 0.6.1
