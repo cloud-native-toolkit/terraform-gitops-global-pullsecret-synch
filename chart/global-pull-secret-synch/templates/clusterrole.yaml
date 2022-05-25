@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: global-pull-secret-sync-role
+  name: {{ .Release.Name }}-role
   labels:
     {{- include "global-pull-secret-synch.labels" . | nindent 4 }}
 rules:
@@ -13,7 +13,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: global-pull-secret-sync-rb
+  name: {{ .Release.Name }}-rb
   labels:
     {{- include "global-pull-secret-synch.labels" . | nindent 4 }}
 subjects:
