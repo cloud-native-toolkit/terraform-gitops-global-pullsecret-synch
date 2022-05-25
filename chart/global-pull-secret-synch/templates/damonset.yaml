@@ -8,7 +8,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      {{- include "global-pull-secret-synch.selectorLabels" . | nindent 6 }}
+      {{- include "global-pull-secret-synch.labels" . | nindent 6 }}
   template:
     spec:
       serviceAccountName: global-pull-secret-sync-sa
@@ -34,3 +34,6 @@ spec:
               name: host
           command:
             - /scripts/global-pull-secret-sync.sh
+
+
+DaemonSet.apps "global-pull-secret-sync-ds" is invalid: spec.template.metadata.labels: Invalid value: map[string]string(nil): `selector` does not match template `labels`
