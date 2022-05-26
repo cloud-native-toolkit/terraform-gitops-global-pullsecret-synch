@@ -1,4 +1,4 @@
-module "gitops_module" {
+module "global_pull_secret_synch" {
   source = "./module"
 
   gitops_config = module.gitops.gitops_config

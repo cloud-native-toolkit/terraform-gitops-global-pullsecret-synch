@@ -48,7 +48,8 @@ validate_gitops_content "${NAMESPACE}" "${LAYER}" "${SERVER_NAME}" "${TYPE}" "${
 
 check_k8s_namespace "${NAMESPACE}"
 
-#check_k8s_resource "${NAMESPACE}" "deployment" "${COMPONENT_NAME}"
+check_k8s_resource "${NAMESPACE}" "daemonset" "global-pull-secret-synch-ds"
+
 
 cd ..
 rm -rf .testrepo
