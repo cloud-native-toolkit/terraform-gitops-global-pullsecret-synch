@@ -10,9 +10,36 @@ data:
 
     while true
     do
+      export BLOCKLIST='["cloud.openshift.com","quay.io","registry.connect.redhat.com","registry.redhat.io"]'
+      echo "BLOCKLIST=$BLOCKLIST"
+      echo "Synchronize docker config: $(date +"%T")"
       ls -la /host
-      cat /host/.dockerconfigjson
-      sleep 5m
+      cat /host/.docker/config.json
+
+      cp /host/.docker/config.json /host/.docker/config.json.backup
+
+      oc extract secret/pull-secret \
+        -n openshift-config
+
+      jq -rc '.auths | keys[]' .dockerconfigjson | while read key; do
+
+        #echo $key
+        FOUND=$(echo "$BLOCKLIST" | jq -e '.[]|select(. == "'$key'")')
+
+        # if not found in blocklist, then process the key
+        if [ -z $FOUND ]; then
+          echo "Processing \"$key\""
+
+          VALUE=$(jq -cr ".auths.\"$key\"" .dockerconfigjson)
+
+          cat /host/.docker/config.json | jq '.auths += {"'$IBM_ENTITLEMENT_SERVER'":'$VALUE'}' > /host/.docker/config.json.tmp
+          mv /host/.docker/config.json.tmp /host/.docker/config.json
+        fi
+
+    done
+
+
+      sleep 1m
     done
 
 
