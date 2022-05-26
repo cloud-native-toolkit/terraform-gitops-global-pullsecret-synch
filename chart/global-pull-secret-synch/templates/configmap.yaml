@@ -40,7 +40,7 @@ data:
 
       rm -rf .dockerconfigjson
 
-      sleep 1m
+      sleep 5m
     done
 
 
