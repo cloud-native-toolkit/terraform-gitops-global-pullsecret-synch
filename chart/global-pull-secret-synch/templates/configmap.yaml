@@ -10,11 +10,12 @@ data:
 
     while true
     do
-      export BLOCKLIST='["cloud.openshift.com","quay.io","registry.connect.redhat.com","registry.redhat.io"]'
-      echo "BLOCKLIST=$BLOCKLIST"
+      BLOCKLIST='["cloud.openshift.com","quay.io","registry.connect.redhat.com","registry.redhat.io"]'
+      #echo "BLOCKLIST=$BLOCKLIST"
       echo "Synchronize docker config: $(date +"%T")"
-      ls -la /host
-      cat /host/.docker/config.json
+
+      #ls -la /host
+      #cat /host/.docker/config.json
 
       cp /host/.docker/config.json /host/.docker/config.json.backup
 
@@ -32,12 +33,12 @@ data:
 
           VALUE=$(jq -cr ".auths.\"$key\"" .dockerconfigjson)
 
-          cat /host/.docker/config.json | jq '.auths += {"'$IBM_ENTITLEMENT_SERVER'":'$VALUE'}' > /host/.docker/config.json.tmp
+          cat /host/.docker/config.json | jq '.auths += {"'$key'":'$VALUE'}' > /host/.docker/config.json.tmp
           mv /host/.docker/config.json.tmp /host/.docker/config.json
         fi
+      done
 
-    done
-
+      rm -rf .dockerconfigjson
 
       sleep 1m
     done
