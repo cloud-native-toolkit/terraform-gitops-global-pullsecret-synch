@@ -1,8 +1,7 @@
 name: gitops-global-pullsecret-synch
 type: gitops
 description: >-
-  Module to populate a gitops repo with the resources to provision
-  global-pullsecret-synch
+  Module to populate a gitops repo with the resources to creates a DaemonSet to periodically read changes in the `pull-secret` secret in the `openshift-config` namespace, and automatically apply those to the cluster worker nodes without requiring node reboot/reload.
 tags:
   - tools
   - gitops
@@ -20,6 +19,11 @@ versions:
         refs:
           - source: github.com/cloud-native-toolkit/terraform-gitops-namespace.git
             version: '>= 1.0.0'
+      - id: pullsecret
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-gitops-global-pullsecret.git
+            version: '>= 0.0.1'
+            optional: true
     variables:
       - name: gitops_config
         moduleRef:
