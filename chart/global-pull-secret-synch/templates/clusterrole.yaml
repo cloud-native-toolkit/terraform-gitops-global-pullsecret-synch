@@ -25,5 +25,5 @@ subjects:
     namespace: {{ .Release.Namespace }}
 roleRef:
   kind: ClusterRole
-  name: global-pull-secret-role
+  name: {{ .Release.Name }}-role
   apiGroup: rbac.authorization.k8s.io
